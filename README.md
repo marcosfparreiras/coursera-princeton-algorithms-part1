@@ -1,0 +1,2 @@
+# About it
+This project holds the assignments for the course Algorithms, part 1, from Princeton University on Coursera. The course can be reached [clicking here](https://www.coursera.org/learn/introduction-to-algorithms/home/welcome).
