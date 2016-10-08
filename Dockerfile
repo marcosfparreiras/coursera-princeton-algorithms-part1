@@ -7,7 +7,5 @@ COPY algs4/ /root/algs4/
 RUN echo '# Add ~/algs4/bin to the PATH' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:/root/algs4/bin' >> ~/.bashrc
 
-# Copy hello (example java class) into container
+# Set /usr/src as entrypoint directory
 WORKDIR /usr/src/
-RUN mkdir hello
-COPY hello/ /usr/src/hello/
