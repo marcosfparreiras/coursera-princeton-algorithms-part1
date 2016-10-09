@@ -21,9 +21,10 @@ public class PercolationStats {
   }
 
   public void printReport() {
-    System.out.format("\nmean: %f\n", this.mean());
-    System.out.format("stddev: %f\n", this.stddev());
-    // System.out.format("mean: %f", this.mean());
+    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
+    System.out.format("mean: %f\n", mean());
+    System.out.format("stddev: %f\n", stddev());
+    System.out.format("95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi());
   }
 
   // sample mean of percolation threshold
@@ -36,14 +37,26 @@ public class PercolationStats {
     return StdStats.stddev(results);
   }
 
-  // // low  endpoint of 95% confidence interval
-  // public double confidenceLo()
+  // low  endpoint of 95% confidence interval
+  public double confidenceLo() {
+    return mean() - (1.96 * stddev() / Math.sqrt(n));
+  }
 
-  // // high endpoint of 95% confidence interval
-  // public double confidenceHi()
+  // high endpoint of 95% confidence interval
+  public double confidenceHi() {
+    return mean() + (1.96 * stddev() / Math.sqrt(n));
+  }
 
   public static void main(String[] args) {    // test client (described below)
-    PercolationStats stats = new PercolationStats(200, 100);
+  if(args.length != 2) {
+      System.out.println("Error! Pass the size and trials for the experiment:");
+      System.out.println("Exemple: to run a experiment with size 200 over 100 trials:");
+      System.out.println("$ java-algs4 PercolationStats 200 100");
+      return;
+    }
+    int n = Integer.parseInt(args[0]);
+    int trials = Integer.parseInt(args[1]);
+    PercolationStats stats = new PercolationStats(n, trials);
   }
 
   private double MonteCarmoSimulationSimulation(int n) {
@@ -56,6 +69,7 @@ public class PercolationStats {
       // Open the site (row i, column j).
       p.open(sitei, sitej);
     }
+    double rate = p.openSitesRate();
     return rate;
   }
 }

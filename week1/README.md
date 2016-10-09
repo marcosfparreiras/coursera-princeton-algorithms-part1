@@ -2,11 +2,21 @@
 Here is the programming assignment [specification](http://coursera.cs.princeton.edu/algs4/assignments/percolation.html) that describes the assignment requirements.
 
 # How to run it?
-1- Compile the files:
+1- Inside the Docker container, compile the files:
 ```
-# javac-algs4 Percolation.java
+# javac-algs4 Percolation.java PercolationStats.java
 ```
-2- Run it passing the desired value of N as parameter
+2- Run it passing the desired parameters:
+  - n: number of sites will be n^2
+  - trials: number of trials over the experiment
+
+Interfafe:
 ```
-# java-algs4 Percolation 10
+# java-algs4 PercolationStats n trials
+```
+
+## Example:
+In order to run an experiment with 200^2 sites, using 100 trials:
+```
+# java-algs4 PercolationStats 200 100
 ```
