@@ -88,15 +88,7 @@ public class Percolation {
 
   // test client (optional)
   public static void main(String[] args) {
-    System.out.println("Testing client");
-
-    int n = 10;
-    if (args.length != 0) {
-      n = Integer.parseInt(args[0]);
-    }
-
-    System.out.format("Using n: %d\n", n);
-    Percolation p = new Percolation(n);
+    Percolation p = new Percolation(3);
     p.pritSites();
     p.open(2, 1);
     p.open(1, 2);
