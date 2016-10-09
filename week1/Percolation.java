@@ -67,7 +67,7 @@ public class Percolation {
     }
   }
 
-  public int linearIndex(int i, int j) {
+  private int linearIndex(int i, int j) {
     return n * (i-1) + j -1;
   }
 
@@ -78,7 +78,8 @@ public class Percolation {
 
    // is site (row i, column j) full?
    public boolean isFull(int i, int j) {
-
+     int site_index = linearIndex(i, j);
+     return unionfind.connected(site_index, virtual_top_index);
    }
 
    // does the system percolate?
@@ -107,38 +108,14 @@ public class Percolation {
      System.out.format("Using n: %d\n", n);
      Percolation p = new Percolation(n);
      p.pritSites();
+     p.open(2,1);
      p.open(1,2);
+     p.open(2,2);
+     p.open(2,3);
+     p.open(3,3);
      p.pritSites();
-     p.open(1,3);
-     p.pritSites();
-     System.out.format("(1,1) is open?, %b\n", p.isOpen(1,1));
-     System.out.format("(1,2) is open?, %b\n", p.isOpen(1,2));
-     System.out.format("(1,2) is open?, %b\n", p.isOpen(1,3));
-     int index1 = p.linearIndex(1,2);
-     int index2 = p.linearIndex(1,3);
-     System.out.println(p.unionfind.connected(index1, index2));
-
+     System.out.format("(2,2) is open?, %b\n", p.isOpen(2,3));
+     System.out.format("(2,2) is full?, %b\n", p.isFull(2,2));
+     System.out.format("percolates?, %b\n", p.percolates());
    }
 }
-
-// 0  1  2  3  4
-// 5  6  7  8  9
-// 10 11 12 13 14
-// 15 16 17 18 19
-// 20 21 22 23 24
-
-// n * (i-1) + j -1
-// n = 5
-
-// 1, 5
-
-
-// i=1, y=1
-// 0
-
-// i=3, y=1
-// 10
-
-// i=4, y=5
-// 19
-// 5*3 + 4
