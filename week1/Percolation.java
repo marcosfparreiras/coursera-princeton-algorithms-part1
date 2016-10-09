@@ -5,6 +5,8 @@ public class Percolation {
 
   private int n;
   private int[] sites;
+  private int virtual_top_index;
+  private int virtual_bottom_index;
   public WeightedQuickUnionUF unionfind;
   private static final int CLOSED = 0;
   private static final int OPENED = 1;
@@ -16,8 +18,24 @@ public class Percolation {
     this.n = n;
     this.unionfind = new WeightedQuickUnionUF(n * n + 2);
     this.sites = new int[n*n];
+
+    // Initialize sites array
     for (int i = 0; i < n*n; i++) {
       this.sites[i] = CLOSED;
+    }
+
+    // Connect first row to virtual top site
+    this.virtual_top_index = n * n;
+    for (int j = 1; j <= n; j++) {
+      int site_index = linearIndex(1, j);
+      this.unionfind.union(site_index, this.virtual_top_index);
+    }
+
+    // Connect last row to virtual bottom site
+    this.virtual_bottom_index = n * n + 1;
+    for (int j = 1; j <= n; j++) {
+      int site_index = linearIndex(n, j);
+      this.unionfind.union(site_index, this.virtual_bottom_index);
     }
   }
 
@@ -28,15 +46,6 @@ public class Percolation {
     }
     this.sites[linearIndex(i,j)] = OPENED;
     this.connectToAdjacents(i, j);
-  }
-
-  public void pritSites() {
-    for(int i=1; i<=n; i++) {
-      for(int j=1; j<=n; j++) {
-        System.out.format("  %d", sites[linearIndex(i,j)]);
-      }
-      System.out.println("");
-    }
   }
 
   private void connectToAdjacents(int i, int j) {
@@ -67,11 +76,24 @@ public class Percolation {
      return this.sites[linearIndex(i,j)] == OPENED;
    }
 
-  //  // is site (row i, column j) full?
-  //  public boolean isFull(int i, int j)
+   // is site (row i, column j) full?
+   public boolean isFull(int i, int j) {
 
-  //  // does the system percolate?
-  //  public boolean percolates()
+   }
+
+   // does the system percolate?
+   public boolean percolates() {
+     return this.unionfind.connected(virtual_top_index, virtual_bottom_index);
+   }
+
+  public void pritSites() {
+    for(int i=1; i<=n; i++) {
+      for(int j=1; j<=n; j++) {
+        System.out.format("  %d", sites[linearIndex(i,j)]);
+      }
+      System.out.println("");
+    }
+  }
 
    // test client (optional)
    public static void main(String[] args) {
