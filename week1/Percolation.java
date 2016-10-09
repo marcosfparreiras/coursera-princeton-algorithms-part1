@@ -1,7 +1,6 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-  // create n-by-n grid, with all sites blocked
 
   private static final int CLOSED = 0;
   private static final int OPENED = 1;
@@ -11,6 +10,7 @@ public class Percolation {
   private int virtualBottomIndex;
   private WeightedQuickUnionUF unionFind;
 
+  // create n-by-n grid, with all sites blocked
   public Percolation(int n) {
     if (n <= 0) {
       throw new IllegalArgumentException(Integer.toString(n));
@@ -81,6 +81,11 @@ public class Percolation {
     return this.unionFind;
   }
 
+  public double openSitesRate() {
+    int openned = opennedSites();
+    return (double) openned / n;
+  }
+
   // test client (optional)
   public static void main(String[] args) {
     System.out.println("Testing client");
@@ -102,6 +107,16 @@ public class Percolation {
     System.out.format("(2,2) is open?, %b\n", p.isOpen(2, 3));
     System.out.format("(2,2) is full?, %b\n", p.isFull(2, 2));
     System.out.format("percolates?, %b\n", p.percolates());
+  }
+
+  private int opennedSites() {
+    int openned = 0;
+    for (int i = 0; i < n; i++) {
+      if (sites[i] == OPENED) {
+        openned++;
+      }
+    }
+    return openned;
   }
 
   private void connectToAdjacents(int i, int j) {
