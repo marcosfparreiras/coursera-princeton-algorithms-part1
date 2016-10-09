@@ -67,15 +67,6 @@ public class Percolation {
     return this.unionFind.connected(virtualTopIndex, virtualBottomIndex);
   }
 
-  public void printSites() {
-    for (int i = 1; i <= n; i++) {
-      for (int j = 1; j <= n; j++) {
-        System.out.format("  %d", sites[linearIndex(i, j)]);
-      }
-      System.out.println("");
-    }
-  }
-
   public double openSitesRate() {
     int openned = opennedSites();
     return (double) openned / n;
@@ -135,5 +126,14 @@ public class Percolation {
 
   private int linearIndex(int i, int j) {
     return n * (i-1) + j -1;
+  }
+
+  private void printSites() {
+    for (int i = 1; i <= n; i++) {
+      for (int j = 1; j <= n; j++) {
+        System.out.format("  %d", sites[linearIndex(i, j)]);
+      }
+      System.out.println("");
+    }
   }
 }
