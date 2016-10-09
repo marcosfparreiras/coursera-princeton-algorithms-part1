@@ -40,10 +40,10 @@ public class Percolation {
   }
 
   private void connectToAdjacents(int i, int j) {
-    connectToAdjacent(i, j, i - 1, j - 1);
-    connectToAdjacent(i, j, i - 1, j + 1);
-    connectToAdjacent(i, j, i + 1, j - 1);
-    connectToAdjacent(i, j, i + 1, j + 1);
+    connectToAdjacent(i, j, i, j - 1);
+    connectToAdjacent(i, j, i, j + 1);
+    connectToAdjacent(i, j, i - 1, j);
+    connectToAdjacent(i, j, i + 1, j);
   }
 
   private void connectToAdjacent(int i, int j, int ii, int jj) {
@@ -89,7 +89,9 @@ public class Percolation {
      p.pritSites();
      p.open(1,3);
      p.pritSites();
-     System.out.println(p.isOpen(1,1));
+     System.out.format("(1,1) is open?, %b\n", p.isOpen(1,1));
+     System.out.format("(1,2) is open?, %b\n", p.isOpen(1,2));
+     System.out.format("(1,2) is open?, %b\n", p.isOpen(1,3));
      int index1 = p.linearIndex(1,2);
      int index2 = p.linearIndex(1,3);
      System.out.println(p.unionfind.connected(index1, index2));
