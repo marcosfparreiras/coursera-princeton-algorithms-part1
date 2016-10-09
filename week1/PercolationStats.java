@@ -1,4 +1,3 @@
-// import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
@@ -15,7 +14,7 @@ public class PercolationStats {
     this.results = new double[trials];
     // Run experiment for each trial
     for (int i = 0; i < trials; i++) {
-      this.results[i] = monteCarmoSimulationSimulation();
+      this.results[i] = monteCarmoSimulation();
     }
     printReport();
   }
@@ -61,7 +60,7 @@ public class PercolationStats {
     PercolationStats stats = new PercolationStats(n, trials);
   }
 
-  private double monteCarmoSimulationSimulation() {
+  private double monteCarmoSimulation() {
     // Initialize all sites to be blocked.
     Percolation p = new Percolation(n);
     // Repeat the following until the system percolates:
