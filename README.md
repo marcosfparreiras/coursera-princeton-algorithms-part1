@@ -30,7 +30,7 @@ Hello, World
 
 To run Checkstyle, type the following command in the Terminal:
 ```
-root:/usr/src/hello username$ checkstyle-algs4 HelloWorld.java
+root:/usr/src/hello# checkstyle-algs4 HelloWorld.java
 Running checkstyle on HelloWorld.java:
 Starting audit...
 Audit done.
@@ -38,6 +38,6 @@ Audit done.
 
 To run Findbugs, type the following command in the Terminal:
 ```
-root:/usr/src/hello username$ findbugs-algs4 HelloWorld.class
+root:/usr/src/hello# findbugs-algs4 HelloWorld.class
 Running findbugs on HelloWorld.class:
 ```
