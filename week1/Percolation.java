@@ -4,8 +4,8 @@ public class Percolation {
 
   private static final int CLOSED = 0;
   private static final int OPENED = 1;
+  public int[] sites;
   private int n;
-  private int[] sites;
   private int virtualTopIndex;
   private int virtualBottomIndex;
   private WeightedQuickUnionUF unionFind;
@@ -67,11 +67,6 @@ public class Percolation {
     return this.unionFind.connected(virtualTopIndex, virtualBottomIndex);
   }
 
-  public double openSitesRate() {
-    int openned = opennedSites();
-    return (double) openned / n;
-  }
-
   // test client (optional)
   public static void main(String[] args) {
     Percolation p = new Percolation(3);
@@ -95,16 +90,6 @@ public class Percolation {
     System.out.format("(2,2) is full?, %b\n", p.isFull(2, 2));
     System.out.format("percolates?, %b\n", p.percolates());
     System.out.println("--------------------\n");
-  }
-
-  private int opennedSites() {
-    int openned = 0;
-    for (int i = 0; i < n; i++) {
-      if (sites[i] == OPENED) {
-        openned++;
-      }
-    }
-    return openned;
   }
 
   private void connectToAdjacents(int i, int j) {
