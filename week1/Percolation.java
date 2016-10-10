@@ -23,20 +23,10 @@ public class Percolation {
     for (int i = 0; i < n*n; i++) {
       this.sites[i] = CLOSED;
     }
-
-    // Connect first row to virtual top site
+    // Set virtualTopIndex
     this.virtualTopIndex = n * n;
-    for (int j = 1; j <= n; j++) {
-      int siteIndex = linearIndex(1, j);
-      this.unionFind.union(siteIndex, this.virtualTopIndex);
-    }
-
-    // Connect last row to virtual bottom site
+    // Set virtualBottomIndex
     this.virtualBottomIndex = n * n + 1;
-    for (int j = 1; j <= n; j++) {
-      int siteIndex = linearIndex(n, j);
-      this.unionFind.union(siteIndex, this.virtualBottomIndex);
-    }
   }
 
   // open site (row i, column j) if it is not open already
@@ -46,6 +36,7 @@ public class Percolation {
     }
     this.sites[linearIndex(i, j)] = OPENED;
     this.connectToAdjacents(i, j);
+    this.connectToVirtualIndexes(i, j);
   }
 
   // is site (row i, column j) open?
@@ -81,6 +72,16 @@ public class Percolation {
       if (isOpen(ii, jj)) {
         this.unionFind.union(siteIndex, adjacentIndex);
       }
+    }
+  }
+
+  private void connectToVirtualIndexes(int i, int j) {
+    int siteIndex = linearIndex(i, j);
+    if (i == 1) {
+      this.unionFind.union(siteIndex, this.virtualTopIndex);
+    }
+    if (i == n) {
+      this.unionFind.union(siteIndex, this.virtualBottomIndex);
     }
   }
 
