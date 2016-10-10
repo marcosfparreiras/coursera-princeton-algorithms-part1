@@ -7,7 +7,7 @@ public class Percolation {
   private int[] sites;
   private int n;
   private int virtualTopIndex;
-  private int virtualBottomIndex;
+  // private int virtualBottomIndex;
   private WeightedQuickUnionUF unionFind;
 
   // create n-by-n grid, with all sites blocked
@@ -26,7 +26,7 @@ public class Percolation {
     // Set virtualTopIndex
     this.virtualTopIndex = n * n;
     // Set virtualBottomIndex
-    this.virtualBottomIndex = n * n + 1;
+    // this.virtualBottomIndex = n * n + 1;
   }
 
   // open site (row i, column j) if it is not open already
@@ -54,19 +54,19 @@ public class Percolation {
     }
     if (isOpen(i, j)) {
       int siteIndex = linearIndex(i, j);
-      for (int k = 1; k <= n; k++) {
-        int topRowSiteIndex = linearIndex(1, k);
-        if (isOpen(1, k) && unionFind.connected(siteIndex, topRowSiteIndex)) {
-          return true;
-        }
-      }
+      return unionFind.connected(siteIndex, virtualTopIndex);
     }
     return false;
   }
 
   // does the system percolate?
   public boolean percolates() {
-    return unionFind.connected(virtualTopIndex, virtualBottomIndex);
+    for (int k = 1; k <= n; k++) {
+      if (isFull(n, k)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private void connectToAdjacents(int i, int j) {
@@ -91,9 +91,9 @@ public class Percolation {
     if (i == 1) {
       this.unionFind.union(siteIndex, this.virtualTopIndex);
     }
-    if (i == n) {
-      this.unionFind.union(siteIndex, this.virtualBottomIndex);
-    }
+    // if (i == n) {
+    //   this.unionFind.union(siteIndex, this.virtualBottomIndex);
+    // }
   }
 
   private int linearIndex(int i, int j) {
