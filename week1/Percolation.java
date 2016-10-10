@@ -27,15 +27,15 @@ public class Percolation {
     // Connect first row to virtual top site
     this.virtualTopIndex = n * n;
     for (int j = 1; j <= n; j++) {
-      int site_index = linearIndex(1, j);
-      this.unionFind.union(site_index, this.virtualTopIndex);
+      int siteIndex = linearIndex(1, j);
+      this.unionFind.union(siteIndex, this.virtualTopIndex);
     }
 
     // Connect last row to virtual bottom site
     this.virtualBottomIndex = n * n + 1;
     for (int j = 1; j <= n; j++) {
-      int site_index = linearIndex(n, j);
-      this.unionFind.union(site_index, this.virtualBottomIndex);
+      int siteIndex = linearIndex(n, j);
+      this.unionFind.union(siteIndex, this.virtualBottomIndex);
     }
   }
 
@@ -58,8 +58,8 @@ public class Percolation {
 
   // is site (row i, column j) full?
   public boolean isFull(int i, int j) {
-    int site_index = linearIndex(i, j);
-    return unionFind.connected(site_index, virtualTopIndex);
+    int siteIndex = linearIndex(i, j);
+    return isOpen(i, j) && unionFind.connected(siteIndex, virtualTopIndex);
   }
 
   // does the system percolate?
@@ -100,11 +100,11 @@ public class Percolation {
   }
 
   private void connectToAdjacent(int i, int j, int ii, int jj) {
-    int site_index = linearIndex(i, j);
-    int adjacent_index = linearIndex(ii, jj);
+    int siteIndex = linearIndex(i, j);
+    int adjacentIndex = linearIndex(ii, jj);
     if (ii >= 1 && ii <= n && jj >= 1 && jj <= n) {
       if (isOpen(ii, jj)) {
-        this.unionFind.union(site_index, adjacent_index);
+        this.unionFind.union(siteIndex, adjacentIndex);
       }
     }
   }

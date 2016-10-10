@@ -48,7 +48,7 @@ public class PercolationStats {
     }
     int n = Integer.parseInt(args[0]);
     int trials = Integer.parseInt(args[1]);
-    PercolationStats stats = new PercolationStats(n, trials);
+    new PercolationStats(n, trials);
   }
 
   private double monteCarmoSimulation() {
