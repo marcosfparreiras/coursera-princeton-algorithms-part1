@@ -67,31 +67,6 @@ public class Percolation {
     return this.unionFind.connected(virtualTopIndex, virtualBottomIndex);
   }
 
-  // test client (optional)
-  public static void main(String[] args) {
-    Percolation p = new Percolation(3);
-    System.out.println("\nInitial Configuration");
-    p.printSites();
-    System.out.println("--------------------");
-    p.open(2, 1);
-    p.open(1, 2);
-    System.out.println("\nIntermediary Configuration");
-    p.printSites();
-    System.out.format("(2,2) is open?, %b\n", p.isOpen(2, 3));
-    System.out.format("(2,2) is full?, %b\n", p.isFull(2, 2));
-    System.out.println("--------------------");
-    p.open(2, 2);
-    p.open(2, 3);
-    p.open(3, 3);
-    System.out.println("\nFinal Configuration");
-    p.printSites();
-    System.out.println("");
-    System.out.format("(2,2) is open?, %b\n", p.isOpen(2, 3));
-    System.out.format("(2,2) is full?, %b\n", p.isFull(2, 2));
-    System.out.format("percolates?, %b\n", p.percolates());
-    System.out.println("--------------------\n");
-  }
-
   private void connectToAdjacents(int i, int j) {
     connectToAdjacent(i, j, i, j - 1);
     connectToAdjacent(i, j, i, j + 1);
@@ -111,14 +86,5 @@ public class Percolation {
 
   private int linearIndex(int i, int j) {
     return n * (i-1) + j -1;
-  }
-
-  private void printSites() {
-    for (int i = 1; i <= n; i++) {
-      for (int j = 1; j <= n; j++) {
-        System.out.format("  %d", sites[linearIndex(i, j)]);
-      }
-      System.out.println("");
-    }
   }
 }
