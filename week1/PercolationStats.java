@@ -19,15 +19,6 @@ public class PercolationStats {
     printReport();
   }
 
-  public void printReport() {
-    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
-    System.out.format("mean: %f\n", mean());
-    System.out.format("stddev: %f\n", stddev());
-    System.out.format(
-      "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
-    );
-  }
-
   // sample mean of percolation threshold
   public double mean() {
     return StdStats.mean(results);
@@ -75,5 +66,14 @@ public class PercolationStats {
       }
     }
     return opennedSites / (n * n);
+  }
+
+  private void printReport() {
+    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
+    System.out.format("mean: %f\n", mean());
+    System.out.format("stddev: %f\n", stddev());
+    System.out.format(
+      "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
+    );
   }
 }
