@@ -19,15 +19,6 @@ public class PercolationStats {
     printReport();
   }
 
-  public void printReport() {
-    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
-    System.out.format("mean: %f\n", mean());
-    System.out.format("stddev: %f\n", stddev());
-    System.out.format(
-      "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
-    );
-  }
-
   // sample mean of percolation threshold
   public double mean() {
     return StdStats.mean(results);
@@ -48,7 +39,7 @@ public class PercolationStats {
     return mean() + (1.96 * stddev() / Math.sqrt(n));
   }
 
-  public static void main(String[] args) {    // test client (described below)
+  public static void main(String[] args) {
     if (args.length != 2) {
       System.out.println("Error! Pass the size and trials for the experiment:");
       System.out.println("To run a experiment with size 200 over 100 trials:");
@@ -57,10 +48,11 @@ public class PercolationStats {
     }
     int n = Integer.parseInt(args[0]);
     int trials = Integer.parseInt(args[1]);
-    PercolationStats stats = new PercolationStats(n, trials);
+    new PercolationStats(n, trials);
   }
 
   private double monteCarmoSimulation() {
+    double opennedSites = 0;
     // Initialize all sites to be blocked.
     Percolation p = new Percolation(n);
     // Repeat the following until the system percolates:
@@ -68,10 +60,21 @@ public class PercolationStats {
       int sitei = StdRandom.uniform(n) + 1;
       int sitej = StdRandom.uniform(n) + 1;
       // Open the site (row i, column j).
-      p.open(sitei, sitej);
+      if (!p.isOpen(sitei, sitej)) {
+        p.open(sitei, sitej);
+        opennedSites++;
+      }
     }
-    double rate = openSitesRate(p);
-    return rate;
+    return opennedSites / (n * n);
+  }
+
+  private void printReport() {
+    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
+    System.out.format("mean: %f\n", mean());
+    System.out.format("stddev: %f\n", stddev());
+    System.out.format(
+      "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
+    );
   }
 
   private double openSitesRate(Percolation p) {
