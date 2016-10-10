@@ -5,50 +5,52 @@ public class PercolationClient {
   }
 
   public static void example2() {
-    int n = 5;
-    Percolation p = new Percolation(n);
+    // int n = 5;
+    // Percolation p = new Percolation(n);
 
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(1,3);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(1,3);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(4,4);
-    p.open(4,3);
-    p.open(3,3);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(4,4);
+    // p.open(4,3);
+    // p.open(3,3);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(2,4);
-    p.open(4,5);
-    p.open(3,5);
-    p.open(2,5);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(2,4);
+    // p.open(4,5);
+    // p.open(3,5);
+    // p.open(2,5);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(1,5);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(1,5);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(5,2);
-    p.open(5,1);
-    p.open(4,1);
-    p.open(3,1);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(5,2);
+    // p.open(5,1);
+    // p.open(4,1);
+    // p.open(3,1);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
 
-    p.open(3,2);
-    p.printSites();
-    showAllFull(p, n);
-    System.out.println("-----------------");
+    // p.open(3,2);
+    // p.printSites();
+    // showAllFull(p, n);
+    // System.out.println("-----------------");
+
+    // System.out.format("Percolates: %b\n", p.percolates());
   }
 
   public static void showAllFull(Percolation p, int n) {

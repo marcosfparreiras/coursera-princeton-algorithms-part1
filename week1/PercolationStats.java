@@ -76,20 +76,4 @@ public class PercolationStats {
       "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
     );
   }
-
-  private double openSitesRate(Percolation p) {
-    int openned = opennedSites(p);
-    return (double) openned / n;
-  }
-
-  private int opennedSites(Percolation p) {
-    int openned = 0;
-    int[] sites = p.sites;
-    for (int i = 0; i < n; i++) {
-      if (sites[i] == 1) {
-        openned++;
-      }
-    }
-    return openned;
-  }
 }

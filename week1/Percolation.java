@@ -4,7 +4,7 @@ public class Percolation {
 
   private static final int CLOSED = 0;
   private static final int OPENED = 1;
-  public int[] sites;
+  private int[] sites;
   private int n;
   private int virtualTopIndex;
   private int virtualBottomIndex;
@@ -52,13 +52,21 @@ public class Percolation {
     if (i < 1 || i > n || j < 1 || j > n) {
       throw new java.lang.IndexOutOfBoundsException();
     }
-    int siteIndex = linearIndex(i, j);
-    return isOpen(i, j) && unionFind.connected(siteIndex, virtualTopIndex);
+    if (isOpen(i, j)) {
+      int siteIndex = linearIndex(i, j);
+      for (int k = 1; k <= n; k++) {
+        int topRowSiteIndex = linearIndex(1, k);
+        if (isOpen(1, k) && unionFind.connected(siteIndex, topRowSiteIndex)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // does the system percolate?
   public boolean percolates() {
-    return this.unionFind.connected(virtualTopIndex, virtualBottomIndex);
+    return unionFind.connected(virtualTopIndex, virtualBottomIndex);
   }
 
   private void connectToAdjacents(int i, int j) {
@@ -92,7 +100,7 @@ public class Percolation {
     return n * (i-1) + j -1;
   }
 
-  public void printSites() {
+  private void printSites() {
     for (int i = 1; i <= n; i++) {
       for (int j = 1; j <= n; j++) {
         System.out.format("  %d", sites[linearIndex(i, j)]);
