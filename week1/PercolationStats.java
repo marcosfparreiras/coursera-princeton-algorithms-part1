@@ -16,7 +16,7 @@ public class PercolationStats {
     for (int i = 0; i < trials; i++) {
       this.results[i] = monteCarmoSimulation();
     }
-    printReport();
+    // printReport();
   }
 
   // sample mean of percolation threshold
@@ -68,12 +68,12 @@ public class PercolationStats {
     return opennedSites / (n * n);
   }
 
-  private void printReport() {
-    System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
-    System.out.format("mean: %f\n", mean());
-    System.out.format("stddev: %f\n", stddev());
-    System.out.format(
-      "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
-    );
-  }
+  // private void printReport() {
+  //   System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
+  //   System.out.format("mean: %f\n", mean());
+  //   System.out.format("stddev: %f\n", stddev());
+  //   System.out.format(
+  //     "95%% confidence interval: %f, %f\n\n", confidenceLo(), confidenceHi()
+  //   );
+  // }
 }
