@@ -61,6 +61,7 @@ public class PercolationStats {
   }
 
   private double monteCarmoSimulation() {
+    double opennedSites = 0;
     // Initialize all sites to be blocked.
     Percolation p = new Percolation(n);
     // Repeat the following until the system percolates:
@@ -68,9 +69,11 @@ public class PercolationStats {
       int sitei = StdRandom.uniform(n) + 1;
       int sitej = StdRandom.uniform(n) + 1;
       // Open the site (row i, column j).
-      p.open(sitei, sitej);
+      if (!p.isOpen(sitei, sitej)) {
+        p.open(sitei, sitej);
+        opennedSites++;
+      }
     }
-    double rate = p.openSitesRate();
-    return rate;
+    return opennedSites / (n * n);
   }
 }
