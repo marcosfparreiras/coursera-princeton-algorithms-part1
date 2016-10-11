@@ -18,7 +18,7 @@ public class PercolationStats {
     for (int i = 0; i < trials; i++) {
       this.results[i] = monteCarmoSimulation();
     }
-    // printReport();
+    // printReport(trials);
   }
 
   // sample mean of percolation threshold
@@ -69,19 +69,13 @@ public class PercolationStats {
       int linearIndex = blockedSites.remove(arrayListIndex);
       int sitei = linearIndex / n + 1;
       int sitej = linearIndex % n + 1;
-
-      // int sitei = StdRandom.uniform(n) + 1;
-      // int sitej = StdRandom.uniform(n) + 1;
-      // Open the site (row i, column j).
-      // if (!p.isOpen(sitei, sitej)) {
-        p.open(sitei, sitej);
-        opennedSites++;
-      // }
+      p.open(sitei, sitej);
+      opennedSites++;
     }
     return opennedSites / (n * n);
   }
 
-  // private void printReport() {
+  // private void printReport(int trials) {
   //   System.out.format("\nExperiment size: n = %d; trials = %d\n", n, trials);
   //   System.out.format("mean: %f\n", mean());
   //   System.out.format("stddev: %f\n", stddev());
