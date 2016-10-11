@@ -2,8 +2,6 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-  private static final int CLOSED = 0;
-  private static final int OPENED = 1;
   private int[] sites;
   private int n;
   private int virtualTopIndex;
@@ -21,7 +19,7 @@ public class Percolation {
 
     // Initialize sites array
     for (int i = 0; i < n*n; i++) {
-      this.sites[i] = CLOSED;
+      this.sites[i] = 0;
     }
     // Set virtualTopIndex
     this.virtualTopIndex = n * n;
@@ -34,7 +32,7 @@ public class Percolation {
     if (i < 1 || i > n || j < 1 || j > n) {
       throw new java.lang.IndexOutOfBoundsException();
     }
-    this.sites[linearIndex(i, j)] = OPENED;
+    this.sites[linearIndex(i, j)] = 1;
     this.connectToAdjacents(i, j);
     this.connectToVirtualIndexes(i, j);
   }
@@ -44,7 +42,7 @@ public class Percolation {
     if (i < 1 || i > n || j < 1 || j > n) {
       throw new java.lang.IndexOutOfBoundsException();
     }
-    return this.sites[linearIndex(i, j)] == OPENED;
+    return this.sites[linearIndex(i, j)] == 1;
   }
 
   // is site (row i, column j) full?

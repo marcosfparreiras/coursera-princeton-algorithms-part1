@@ -6,7 +6,6 @@ public class PercolationStats {
 
   private double[] results;
   private int n;
-  private int trials;
 
   // perform trials independent experiments on an n-by-n grid
   public PercolationStats(int n, int trials) {
@@ -14,7 +13,6 @@ public class PercolationStats {
       throw new IllegalArgumentException();
     }
     this.n = n;
-    this.trials = trials;
     this.results = new double[trials];
     // Run experiment for each trial
     for (int i = 0; i < trials; i++) {
