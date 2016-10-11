@@ -5,8 +5,9 @@ public class Percolation {
   private int[] sites;
   private int n;
   private int virtualTopIndex;
-  // private int virtualBottomIndex;
+  private int virtualBottomIndex;
   private WeightedQuickUnionUF unionFind;
+  private WeightedQuickUnionUF unionFindFull;
 
   // create n-by-n grid, with all sites blocked
   public Percolation(int n) {
@@ -15,6 +16,7 @@ public class Percolation {
     }
     this.n = n;
     this.unionFind = new WeightedQuickUnionUF(n * n + 2);
+    this.unionFindFull = new WeightedQuickUnionUF(n * n + 2);
     this.sites = new int[n*n];
 
     // Initialize sites array
@@ -24,7 +26,7 @@ public class Percolation {
     // Set virtualTopIndex
     this.virtualTopIndex = n * n;
     // Set virtualBottomIndex
-    // this.virtualBottomIndex = n * n + 1;
+    this.virtualBottomIndex = n * n + 1;
   }
 
   // open site (row i, column j) if it is not open already
@@ -52,19 +54,14 @@ public class Percolation {
     }
     if (isOpen(i, j)) {
       int siteIndex = linearIndex(i, j);
-      return unionFind.connected(siteIndex, virtualTopIndex);
+      return unionFindFull.connected(siteIndex, virtualTopIndex);
     }
     return false;
   }
 
   // does the system percolate?
   public boolean percolates() {
-    for (int k = 1; k <= n; k++) {
-      if (isFull(n, k)) {
-        return true;
-      }
-    }
-    return false;
+    return unionFind.connected(virtualTopIndex, virtualBottomIndex);
   }
 
   private void connectToAdjacents(int i, int j) {
@@ -80,6 +77,7 @@ public class Percolation {
     if (ii >= 1 && ii <= n && jj >= 1 && jj <= n) {
       if (isOpen(ii, jj)) {
         this.unionFind.union(siteIndex, adjacentIndex);
+        this.unionFindFull.union(siteIndex, adjacentIndex);
       }
     }
   }
@@ -88,10 +86,11 @@ public class Percolation {
     int siteIndex = linearIndex(i, j);
     if (i == 1) {
       this.unionFind.union(siteIndex, this.virtualTopIndex);
+      this.unionFindFull.union(siteIndex, this.virtualTopIndex);
     }
-    // if (i == n) {
-    //   this.unionFind.union(siteIndex, this.virtualBottomIndex);
-    // }
+    if (i == n) {
+      this.unionFind.union(siteIndex, this.virtualBottomIndex);
+    }
   }
 
   private int linearIndex(int i, int j) {
