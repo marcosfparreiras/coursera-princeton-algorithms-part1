@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
+import java.util.ArrayList;
 
 public class PercolationStats {
 
@@ -55,18 +56,29 @@ public class PercolationStats {
   }
 
   private double monteCarmoSimulation() {
+    // Initialize ArrayList to control blocked sites with all indexes from 0 to n*n-1
+    ArrayList<Integer> blockedSites = new ArrayList<Integer>();
+    for (int i = 0; i < n * n; i++) {
+      blockedSites.add(i);
+    }
     double opennedSites = 0;
     // Initialize all sites to be blocked.
     Percolation p = new Percolation(n);
     // Repeat the following until the system percolates:
+
     while (!p.percolates()) {
-      int sitei = StdRandom.uniform(n) + 1;
-      int sitej = StdRandom.uniform(n) + 1;
+      int arrayListIndex = StdRandom.uniform(blockedSites.size());
+      int linearIndex = blockedSites.remove(arrayListIndex);
+      int sitei = linearIndex / n + 1;
+      int sitej = linearIndex % n + 1;
+
+      // int sitei = StdRandom.uniform(n) + 1;
+      // int sitej = StdRandom.uniform(n) + 1;
       // Open the site (row i, column j).
-      if (!p.isOpen(sitei, sitej)) {
+      // if (!p.isOpen(sitei, sitej)) {
         p.open(sitei, sitej);
         opennedSites++;
-      }
+      // }
     }
     return opennedSites / (n * n);
   }
