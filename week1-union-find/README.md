@@ -1,6 +1,9 @@
 # Specification
 Here is the programming assignment [specification](http://coursera.cs.princeton.edu/algs4/assignments/percolation.html) that describes the assignment requirements.
 
+# Grade
+This implementation scored `94/100`.
+
 # How to run the full experiment?
 1- Inside the Docker container, compile the files:
 ```
