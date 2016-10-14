@@ -1,7 +1,8 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import java.util.Iterator;
 
-// public class Deque<Item> implements Iterable<Item> {
-public class Deque<Item> {
+public class Deque<Item> implements Iterable<Item> {
+// public class Deque<Item> {
 
   private class Node {
     Item item;
@@ -35,6 +36,9 @@ public class Deque<Item> {
 
   // add the item to the front
   public void addFirst(Item item) {
+    if (item == null) {
+      throw new java.lang.NullPointerException();
+    }
     Node oldFirst = first;
     first = new Node();
     first.item = item;
@@ -46,6 +50,9 @@ public class Deque<Item> {
 
   // add the item to the end
   public void addLast(Item item) {
+    if (item == null) {
+      throw new java.lang.NullPointerException();
+    }
     Node oldLast = last;
     last = new Node();
     last.item = item;
@@ -92,9 +99,30 @@ public class Deque<Item> {
   }
 
   // return an iterator over items in order from front to end
-  // public Iterator<Item> iterator() {
+  public Iterator<Item> iterator() {
+    return new DequeIterator();
+  }
 
-  // }
+  private class DequeIterator implements Iterator<Item> {
+    private Node current = first;
+
+    public boolean hasNext() {
+      return current != null;
+    }
+
+    public Item next() {
+      if (!hasNext()) {
+        throw new java.util.NoSuchElementException();
+      }
+      Item item = current.item;
+      current = current.next;
+      return item;
+    }
+
+    public void remove() {
+      throw new java.lang.UnsupportedOperationException();
+    }
+  }
 
   // unit testing
   public static void main(String[] args) {
@@ -117,6 +145,7 @@ public class Deque<Item> {
     d.addLast("b");
     d.addLast("c");
     d.addLast("d");
+    d.addFirst(null);
     d.print();
     d.printReverse();
     System.out.format("Size: %s\n\n", d.size());
@@ -128,7 +157,11 @@ public class Deque<Item> {
 
     d.removeFirst();
     d.removeFirst();
-    d.print();
+    // d.print();
+    System.out.println("Printing with iterator");
+    for (String s : d) {
+      System.out.format("%s - ", s);
+    }
     d.printReverse();
     System.out.format("Size: %s\n\n", d.size());
 
@@ -141,6 +174,13 @@ public class Deque<Item> {
     d.print();
     d.printReverse();
     System.out.format("Size: %s\n\n", d.size());
+
+    for (String s : d) {
+      System.out.format("%s - ", s);
+    }
+
+    Iterator<String> i = d.iterator();
+    i.remove();
 
   }
 
