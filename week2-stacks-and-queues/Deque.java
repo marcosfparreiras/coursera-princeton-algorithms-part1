@@ -1,7 +1,6 @@
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
-// public class Deque<Item> {
 
   private class Node {
     private Item item;
