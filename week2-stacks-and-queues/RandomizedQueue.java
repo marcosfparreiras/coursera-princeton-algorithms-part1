@@ -2,7 +2,6 @@ import java.util.Iterator;
 import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-// public class RandomizedQueue<Item> {
 
   private class Node {
     Item item;
@@ -77,10 +76,31 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
   private class RandomizedQueueIterator implements Iterator<Item> {
     private int i = 0;
-    public boolean hasNext() { return i < n; }
-    public void remove() { throw new java.lang.UnsupportedOperationException(); }
-    public Item next() { return s[i++]; }
+    private Item[] shuffledQueue = shuffleQueue();
 
+    public boolean hasNext() {
+      return i < n;
+    }
+
+    public void remove() {
+      throw new java.lang.UnsupportedOperationException();
+    }
+
+    public Item next() {
+      if (!hasNext()) {
+        throw new java.util.NoSuchElementException();
+      }
+      return shuffledQueue[i++];
+    }
+
+    private Item[] shuffleQueue() {
+      Item[] queueCopy = (Item[]) new Object[n];
+      for (int k = 0; k < n; k++) {
+        queueCopy[k] = s[k];
+      }
+      StdRandom.shuffle(queueCopy);
+      return queueCopy;
+    }
   }
 
   // unit testing
@@ -95,30 +115,36 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     rq.enqueue("f");
     rq.enqueue("g");
     rq.print();
-    // String d = rq.dequeue();
     System.out.format("Dequeued: %s\n", rq.dequeue());
     rq.print();
     System.out.format("Dequeued: %s\n", rq.dequeue());
     rq.print();
-    System.out.format("Dequeued: %s\n", rq.dequeue());
-    rq.print();
-    System.out.format("Dequeued: %s\n", rq.dequeue());
-    rq.print();
+
 
     System.out.println("Using Iterator:");
     for (String s : rq) {
       System.out.format("%s - ", s);
     }
-     System.out.println();
-    // System.out.println(rq.size());
-    // System.out.println(rq.sample());
-    // System.out.println(rq.sample());
-    // System.out.println(rq.sample());
-    // System.out.println(rq.sample());
+    System.out.println();
+
+    System.out.println("Using Iterator:");
+    for (String s : rq) {
+      System.out.format("%s - ", s);
+    }
+    System.out.println();
+
+    System.out.println("Using Iterator:");
+    for (String s : rq) {
+      System.out.format("%s - ", s);
+    }
+    System.out.println();
+    System.out.println(rq.size());
+    System.out.println(rq.sample());
+    System.out.println(rq.sample());
   }
 
   private void print() {
-    for(int i = 0; i < size(); i++) {
+    for (int i = 0; i < size(); i++) {
       System.out.format("%s - ", s[i]);
     }
     System.out.println();
