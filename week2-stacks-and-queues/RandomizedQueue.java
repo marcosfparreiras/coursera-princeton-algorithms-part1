@@ -1,6 +1,8 @@
+import java.util.Iterator;
 import edu.princeton.cs.algs4.StdRandom;
-// public class RandomizedQueue<Item> implements Iterable<Item> {
-public class RandomizedQueue<Item> {
+
+public class RandomizedQueue<Item> implements Iterable<Item> {
+// public class RandomizedQueue<Item> {
 
   private class Node {
     Item item;
@@ -69,7 +71,17 @@ public class RandomizedQueue<Item> {
   }
 
   // // return an independent iterator over items in random order
-  // public Iterator<Item> iterator()
+  public Iterator<Item> iterator() {
+    return new RandomizedQueueIterator();
+  }
+
+  private class RandomizedQueueIterator implements Iterator<Item> {
+    private int i = 0;
+    public boolean hasNext() { return i < n; }
+    public void remove() { throw new java.lang.UnsupportedOperationException(); }
+    public Item next() { return s[i++]; }
+
+  }
 
   // unit testing
   public static void main(String[] args) {
@@ -92,6 +104,12 @@ public class RandomizedQueue<Item> {
     rq.print();
     System.out.format("Dequeued: %s\n", rq.dequeue());
     rq.print();
+
+    System.out.println("Using Iterator:");
+    for (String s : rq) {
+      System.out.format("%s - ", s);
+    }
+     System.out.println();
     // System.out.println(rq.size());
     // System.out.println(rq.sample());
     // System.out.println(rq.sample());
