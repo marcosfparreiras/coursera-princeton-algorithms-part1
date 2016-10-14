@@ -5,12 +5,12 @@ public class Subset {
     int k = Integer.parseInt(args[0]);
     int n = 0;
     RandomizedQueue<String> rqueue = new RandomizedQueue<>();
-    while(!StdIn.isEmpty()) {
+    while (!StdIn.isEmpty()) {
       n++;
       String s = StdIn.readString();
       rqueue.enqueue(s);
     }
-    for(int i = 0; i < n - k; i++) {
+    for (int i = 0; i < n - k; i++) {
       rqueue.dequeue();
     }
     for (String s : rqueue) {
