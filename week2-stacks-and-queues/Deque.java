@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Deque<Item> implements Iterable<Item> {
 
@@ -41,7 +42,10 @@ public class Deque<Item> implements Iterable<Item> {
     first = new Node();
     first.item = item;
     first.next = oldFirst;
-    if (oldFirst != null) {
+    if (oldFirst == null) {
+      last = first;
+    }
+    else {
       oldFirst.previous = first;
     }
   }
@@ -124,79 +128,85 @@ public class Deque<Item> implements Iterable<Item> {
 
   // unit testing
   public static void main(String[] args) {
-    System.out.println("Testing");
+    StdOut.println("Testing");
     Deque<String> d = new Deque<>();
-    d.print();
-    System.out.format("Size: %s\n\n", d.size());
+    d.completeState();
+    // d.print();
+    // StdOut.printf("Size: %s\n", d.size());
+    // if(d.isEmpty()) { StdOut.println("Is empty"); }
 
-    // d.addFirst("a");
-    d.addLast("a");
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.addFirst("d");
+    d.completeState();
 
-    d.addFirst("k");
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.addFirst("c");
+    d.completeState();
 
-    d.addLast("b");
-    d.addLast("c");
-    d.addLast("d");
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.addFirst("b");
+    d.completeState();
 
-    d.removeFirst();
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
-
-    d.removeFirst();
-    d.removeFirst();
-    System.out.println("Printing with iterator");
-    for (String s : d) {
-      System.out.format("%s - ", s);
-    }
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.addLast("e");
+    d.completeState();
 
     d.removeLast();
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.completeState();
 
     d.removeLast();
-    d.print();
-    d.printReverse();
-    System.out.format("Size: %s\n\n", d.size());
+    d.completeState();
 
-    for (String s : d) {
-      System.out.format("%s - ", s);
-    }
+    d.removeLast();
+    d.completeState();
 
-    Iterator<String> i = d.iterator();
-    i.remove();
+    d.removeLast();
+    d.completeState();
 
+    d.addLast("u");
+    d.completeState();
+
+    d.addLast("v");
+    d.completeState();
+
+    d.removeFirst();
+    d.completeState();
+
+    // for (String s : d) {
+    //   StdOut.printf("%s - ", s);
+    // }
+
+    // Iterator<String> i = d.iterator();
+    // i.remove();
+
+  }
+
+  private void completeState() {
+    StdOut.println("\n---------------------");
+    StdOut.print("Direct  order: ");
+    print();
+    StdOut.print("Inverse order: ");
+    printReverse();
+    StdOut.printf("Size: %d\n", size());
+    if (isEmpty())
+      StdOut.println("Is empty");
+    else
+      StdOut.println("Is NOT empty");
   }
 
   private void print() {
     int count = 0;
     Node node = first;
     while (node != null) {
-      System.out.format("%s - ", node.item);
+      StdOut.printf("%s - ", node.item);
       node = node.next;
     }
-    System.out.println();
+    StdOut.println();
   }
 
   private void printReverse() {
     int count = 0;
     Node node = last;
     while (node != null) {
-      System.out.format("%s - ", node.item);
+      StdOut.printf("%s - ", node.item);
       node = node.previous;
     }
-    System.out.println();
+    StdOut.println();
   }
 }
