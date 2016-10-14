@@ -1,13 +1,12 @@
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
 // public class Deque<Item> {
 
   private class Node {
-    Item item;
-    Node next;
-    Node previous;
+    private Item item;
+    private Node next;
+    private Node previous;
   }
 
   private Node first, last;
@@ -27,7 +26,7 @@ public class Deque<Item> implements Iterable<Item> {
   public int size() {
     int count = 0;
     Node node = first;
-    while(node != null) {
+    while (node != null) {
       count++;
       node = node.next;
     }
@@ -145,7 +144,6 @@ public class Deque<Item> implements Iterable<Item> {
     d.addLast("b");
     d.addLast("c");
     d.addLast("d");
-    d.addFirst(null);
     d.print();
     d.printReverse();
     System.out.format("Size: %s\n\n", d.size());
@@ -157,7 +155,6 @@ public class Deque<Item> implements Iterable<Item> {
 
     d.removeFirst();
     d.removeFirst();
-    // d.print();
     System.out.println("Printing with iterator");
     for (String s : d) {
       System.out.format("%s - ", s);
@@ -187,7 +184,7 @@ public class Deque<Item> implements Iterable<Item> {
   private void print() {
     int count = 0;
     Node node = first;
-    while(node != null) {
+    while (node != null) {
       System.out.format("%s - ", node.item);
       node = node.next;
     }
@@ -197,7 +194,7 @@ public class Deque<Item> implements Iterable<Item> {
   private void printReverse() {
     int count = 0;
     Node node = last;
-    while(node != null) {
+    while (node != null) {
       System.out.format("%s - ", node.item);
       node = node.previous;
     }
