@@ -4,9 +4,9 @@ import edu.princeton.cs.algs4.StdRandom;
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
   private class Node {
-    Item item;
-    Node next;
-    Node previous;
+    private Item item;
+    private Node next;
+    private Node previous;
   }
 
   private Item[] s;
