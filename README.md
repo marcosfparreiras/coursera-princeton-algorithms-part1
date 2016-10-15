@@ -4,9 +4,8 @@ This project holds the assignments for the course Algorithms, part 1, from Princ
 # Running the test application to explore the Checkstyle and Findbugs inside the Container
 If you don't have Docker installed, please checkout the installation guide for [Docker](https://docs.docker.com/engine/installation/) and [Docker Compose](https://docs.docker.com/compose/install/).
 
-Once you have both installed, set the container up by building and running it and:
+Once you have both installed, set the container up running it:
 ```
-user@local$ docker-compose build java
 user@local$ docker-compose run java
 ```
 

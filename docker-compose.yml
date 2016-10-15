@@ -1,5 +1,4 @@
 java:
-  # build: .
-  image: marcosfparreiras/java-algs4-princeton:v1
+  image: macosfparreiras/java-algs4-princeton:v1
   volumes:
     - .:/usr/src
