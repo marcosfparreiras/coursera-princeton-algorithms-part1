@@ -14,9 +14,10 @@ public class FastCollinearPoints {
     if (points == null) {
       throw new java.lang.NullPointerException("argument is null");
     }
-    Arrays.sort(points);
-    treatCornerCasesForPoints(points);
-    findAllLineSegments(points);
+    Point[] pointsCopy = points.clone();
+    Arrays.sort(pointsCopy);
+    treatCornerCasesForPoints(pointsCopy);
+    findAllLineSegments(pointsCopy);
   }
 
   // the number of line segments
@@ -80,14 +81,16 @@ public class FastCollinearPoints {
   }
 
   private void treatCornerCasesForPoints(Point[] points) {
-    for (int i = 0; i < points.length - 2; i++) {
+    for (int i = 0; i < points.length - 1; i++) {
       if (points[i] == null) {
         throw new java.lang.NullPointerException("any point is null");
       }
-      if (points[i] == points[i+1]) {
-        throw new java.lang.IllegalArgumentException(
-          "argument to the constructor contains a repeated point"
-        );
+      for (int j = i + 1; j < points.length; j++) {
+        if (points[i].compareTo(points[j]) == 0) {
+          throw new java.lang.IllegalArgumentException(
+            "argument to the constructor contains a repeated point"
+          );
+        }
       }
     }
   }
