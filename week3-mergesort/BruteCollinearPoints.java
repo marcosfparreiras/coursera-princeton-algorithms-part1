@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.In;
 
 public class BruteCollinearPoints {
-  // finds all line segments containing 4 points
 
   private ArrayList<LineSegment> segments = new ArrayList<>();
 
+  // finds all line segments containing 4 points
   public BruteCollinearPoints(Point[] points) {
     // corner cases
     if (points == null) {
@@ -14,7 +18,6 @@ public class BruteCollinearPoints {
     Arrays.sort(points);
     treatCornerCasesForPoints(points);
     findAllLineSegments(points);
-
   }
 
   // the number of line segments
@@ -28,44 +31,44 @@ public class BruteCollinearPoints {
   }
 
   // Client for unit testing
-  // public static void main(String[] args) {
-  //   // read the n points from a file
-  //   In in = new In(args[0]);
-  //   int n = in.readInt();
-  //   Point[] points = new Point[n];
-  //   for (int i = 0; i < n; i++) {
-  //     int x = in.readInt();
-  //     int y = in.readInt();
-  //     points[i] = new Point(x, y);
-  //   }
+  public static void main(String[] args) {
+    // read the n points from a file
+    In in = new In(args[0]);
+    int n = in.readInt();
+    Point[] points = new Point[n];
+    for (int i = 0; i < n; i++) {
+      int x = in.readInt();
+      int y = in.readInt();
+      points[i] = new Point(x, y);
+    }
 
-  //   // draw the points
-  //   StdDraw.enableDoubleBuffering();
-  //   StdDraw.setXscale(0, 32768);
-  //   StdDraw.setYscale(0, 32768);
-  //   for (Point p : points) {
-  //     p.draw();
-  //   }
-  //   StdDraw.show();
+    // draw the points
+    StdDraw.enableDoubleBuffering();
+    StdDraw.setXscale(0, 32768);
+    StdDraw.setYscale(0, 32768);
+    for (Point p : points) {
+      p.draw();
+    }
+    StdDraw.show();
 
-  //   // print and draw the line segments
-  //   BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-  //   for (LineSegment segment : collinear.segments()) {
-  //     StdOut.println(segment);
-  //     segment.draw();
-  //   }
-  //   StdDraw.show();
-  // }
+    // print and draw the line segments
+    BruteCollinearPoints collinear = new BruteCollinearPoints(points);
+    for (LineSegment segment : collinear.segments()) {
+      StdOut.println(segment);
+      segment.draw();
+    }
+    StdDraw.show();
+  }
 
   private void findAllLineSegments(Point[] points) {
-    for (int first = 0; first < points.length - 4; first++) {
-      for (int second = first + 1; second < points.length - 3; second++) {
+    for (int first = 0; first < points.length - 3; first++) {
+      for (int second = first + 1; second < points.length - 2; second++) {
         double slope12 = points[first].slopeTo(points[second]);
-        for (int third = second + 1; third < points.length - 2; third++) {
-          double slope23 = points[second].slopeTo(points[third]);
-          for (int forth = 0; third + 1 < points.length - 1; forth++) {
-            double slope34 = points[third].slopeTo(points[forth]);
-            if (slope12 == slope34) {
+        for (int third = second + 1; third < points.length - 1; third++) {
+          double slope13 = points[first].slopeTo(points[third]);
+          for (int forth = third + 1; forth < points.length; forth++) {
+            double slope14 = points[first].slopeTo(points[forth]);
+            if (slope12 == slope13 && slope12 == slope14) {
               this.segments.add(new LineSegment(points[first], points[forth]));
             }
           }
