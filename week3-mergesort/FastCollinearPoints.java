@@ -62,17 +62,16 @@ public class FastCollinearPoints {
 
   private void findAllLineSegments(Point[] points) {
     for (int i = 0; i < points.length - 3; i++) {
+      Arrays.sort(points);
       Arrays.sort(points, points[i].slopeOrder());
 
       for (int p = 0, first = 1, last = 2; last < points.length; last++) {
-        // find last collinear to p point
-        while (last < points.length &&
-           points[p].slopeTo(points[first]) == points[p].slopeTo(points[last])) {
-          last++;
+        while (isNextAdjacent(points, p, first, last)) {
+            last++;
         }
         // if found at least 3 elements, make segment if it's unique
         if (last - first >= 3 && points[p].compareTo(points[first]) < 0) {
-          segments.add(new LineSegment(points[p], points[last - 1]));
+            segments.add(new LineSegment(points[p], points[last - 1]));
         }
         // Try to find next
         first = last;
@@ -93,5 +92,14 @@ public class FastCollinearPoints {
         }
       }
     }
+  }
+
+  private boolean isNextAdjacent(Point[] points, int p, int first, int last) {
+    if (last >= points.length)
+      return false;
+
+    double slopePF = points[p].slopeTo(points[first]);
+    double slopePL = points[p].slopeTo(points[last]);
+    return last < points.length && Double.compare(slopePF, slopePL) == 0;
   }
 }
