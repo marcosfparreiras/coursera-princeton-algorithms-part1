@@ -59,6 +59,10 @@ public class Point implements Comparable<Point> {
      * @return the slope between this point and the specified point
      */
     public double slopeTo(Point that) {
+        if (that == null) {
+            throw new NullPointerException("argument is null");
+        }
+
         if (that.y == this.y && that.x == this.x)
             return Double.NEGATIVE_INFINITY;
         if (that.y == this.y)
@@ -82,6 +86,10 @@ public class Point implements Comparable<Point> {
      *         argument point
      */
     public int compareTo(Point that) {
+        if (that == null) {
+            throw new NullPointerException("argument is null");
+        }
+
         // same
         if (this.x == that.x && this.y == that.y) {
             return 0;
@@ -101,15 +109,14 @@ public class Point implements Comparable<Point> {
      * @return the Comparator that defines this ordering on points
      */
     public Comparator<Point> slopeOrder() {
-        new SlopeComparator();
-
+        return new SlopeComparator();
     }
 
-    private Class SlopeComparator implements Comparator<Point> {
-        public int compare(Point a, Point b) {
-            double slopeA = slopeTo(a);
-            double slopeB = slopeTo(b);
-            return Double.compare(slopeA, slopeB);
+    private class SlopeComparator implements Comparator<Point> {
+        public int compare(Point p, Point q) {
+            double slopeP = slopeTo(p);
+            double slopeQ = slopeTo(q);
+            return Double.compare(slopeP, slopeQ);
         }
     }
 
@@ -131,5 +138,9 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
+        Point a = new Point(0, 0);
+        Point b = new Point(4, 4);
+        System.out.println(a.toString());
+        System.out.println(b.toString());
     }
 }
