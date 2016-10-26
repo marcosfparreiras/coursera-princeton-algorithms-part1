@@ -62,15 +62,22 @@ public class Point implements Comparable<Point> {
         if (that == null) {
             throw new NullPointerException("argument is null");
         }
+        double dx = that.x - this.x;
+        double dy = that.y - this.y;
 
+        // same point
         if (that.y == this.y && that.x == this.x)
             return Double.NEGATIVE_INFINITY;
-        if (that.y == this.y)
+
+        // horizontal line
+        if (dy == 0.0)
             return +0.0;
-        if (that.x == this.x)
+
+        // vertical line
+        if (dx == 0.0)
             return Double.POSITIVE_INFINITY;
 
-        return (that.y - this.y)/(that.x - this.x);
+        return dy/dx;
     }
 
     /**
@@ -94,11 +101,11 @@ public class Point implements Comparable<Point> {
         if (this.x == that.x && this.y == that.y) {
             return 0;
         }
-        //less
+        // less
         if (this.y < that.y || (this.y == that.y && this.x < that.x)) {
             return -1;
         }
-        //bigger
+        // bigger
         return 1;
     }
 
@@ -138,9 +145,5 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
         /* YOUR CODE HERE */
-        Point a = new Point(0, 0);
-        Point b = new Point(4, 4);
-        System.out.println(a.toString());
-        System.out.println(b.toString());
     }
 }

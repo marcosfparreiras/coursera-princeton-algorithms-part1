@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.In;
 
@@ -66,10 +65,13 @@ public class BruteCollinearPoints {
         double slope12 = points[first].slopeTo(points[second]);
         for (int third = second + 1; third < points.length - 1; third++) {
           double slope13 = points[first].slopeTo(points[third]);
-          for (int forth = third + 1; forth < points.length; forth++) {
-            double slope14 = points[first].slopeTo(points[forth]);
-            if (slope12 == slope13 && slope12 == slope14) {
-              this.segments.add(new LineSegment(points[first], points[forth]));
+
+          if (slope12 == slope13) {
+            for (int forth = third + 1; forth < points.length; forth++) {
+              double slope14 = points[first].slopeTo(points[forth]);
+              if (slope12 == slope14) {
+                segments.add(new LineSegment(points[first], points[forth]));
+              }
             }
           }
         }
